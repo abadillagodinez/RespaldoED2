@@ -4,6 +4,7 @@
 #include <fstream>
 #include "stringParser.h"
 
+class ArbolBp;
 using namespace std;
 //orden 5, implicito
 
@@ -304,6 +305,10 @@ void imprimir()
             //root->imprimir();
         }
     }
+   
+    
+    
+    
 
 };
 

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include "stringParser.h"
+#pragma once
 
 using namespace std;
 //orden 5, implicito
@@ -296,45 +297,5 @@ void imprimir()
         }
     }
 
-    string getStringReporteProfesores(Paginap* page){
-        string s="";
-        if(page->isEmpty()){
-            int i=1;
-            while(i<=4){
-                if(page->claves[i]!=NULL){
-                    s+=page->claves[i]->to_string();
-                    i++;
-                }else{
-                    break;
-                }
-            }
-            return s;
-        }else{
-            int i=0;
-            while(i<=4){
-                if(page->ramas[i]!=NULL){
-                    s+=getStringReporteProfesores(page->ramas[i]);
-                }
-                i++;
-            }
-            i=1;
-            while(i<=4){
-                if(page->claves[i]!=NULL){
-                    s+=page->claves[i]->to_string();
-                    i++;
-                }else{
-                    break;
-                }
-            }
-            return s;
-        }
-    }
-    
-    void reporteTodosProfesores(){
-        ofstream file;
-        file.open("Reporte_profesores.txt");
-        file<<getStringReporteProfesores(root);
-        file.close();
-    }
     
 };

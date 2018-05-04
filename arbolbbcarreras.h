@@ -6,8 +6,7 @@ class ArbolAVLCursos;
 #include <iostream>
 #include "stringParser.h"
 #include "nododebst.h"
-#include "ProfesoresTree.h"
-
+#pragma twice
 
 using namespace std;
 
@@ -148,7 +147,7 @@ public:
         ofstream file;
         file.open("ProfesoresCurso"+std::to_string(codCurso)+"Carrera"+
         std::to_string(codCarrera)+".txt");
-        NodoDeBST *carrera=buscarNodo(codCarrera);
+        NodoDeBST *carrera=buscarNodo(raiz,codCarrera);
         if(carrera!=NULL){
             NodeAVL * cursos=carrera->cursos->buscarNodo(carrera->cursos->root,codCarrera,codCurso);
             if(cursos!=NULL){
@@ -171,7 +170,7 @@ public:
         ofstream file;
         file.open("ProfesoresCurso"+std::to_string(codCurso)+"Carrera"+
         std::to_string(codCarrera)+".txt");
-        NodoDeBST *carrera=buscarNodo(codCarrera);
+        NodoDeBST *carrera=buscarNodo(raiz,codCarrera);
         if(carrera!=NULL){
             NodeAVL * cursos=carrera->cursos->buscarNodo(carrera->cursos->root,codCarrera,codCurso);
             if(cursos!=NULL){
@@ -179,7 +178,7 @@ public:
                         std::to_string(codCarrera),std::to_string(codCurso),codGrupo);
                 if(grups!=NULL){
                     nodoAA* estCurso=grups->miembros;
-                    string s=estCurso;
+                    string s=estCurso->estudiantesGrupo(estudiantes);
                 }else{
                     string s="No existe el grupo especificado";
                     file<<s;
@@ -190,6 +189,174 @@ public:
             }
         }else{
             string s="No existe la carrera especificada";
+            file<<s;
+        }
+        file.close();
+    }
+    
+    string getStringReporteProfesores(Paginap* page){
+        string s="";
+        if(!page->hayRamas()){
+            int i=1;
+            while(i<=4){
+                if(page->claves[i]!=NULL){
+                    s+=page->claves[i]->to_string();
+                    i++;
+                }else{
+                    break;
+                }
+            }
+            return s;
+        }else{
+            int i=0;
+            while(i<=4){
+                if(page->ramas[i]!=NULL){
+                    s+=getStringReporteProfesores(page->ramas[i]);
+                }
+                i++;
+            }
+            i=1;
+            while(i<=4){
+                if(page->claves[i]!=NULL){
+                    s+=page->claves[i]->to_string();
+                    i++;
+                }else{
+                    break;
+                }
+            }
+            return s;
+        }
+    }
+    
+    void reporteTodosProfesores(ArbolBp* profs){
+        ofstream file;
+        file.open("Reporte_profesores.txt");
+        file<<getStringReporteProfesores(profs->root);
+        file.close();
+    }
+    
+    void reporteProfesCategoria(string i,ArbolBp* profs){
+        ofstream file;
+        file.open("Reporte_profesores_Categoria"+i+".txt");
+        string s=stringReporteCategoria(i,profs->root);
+        file<<s;
+        file.close();
+    }
+    
+    string stringReporteCategoria(string p, Paginap* page){
+        string s="";
+        if(!page->hayRamas()){
+            int i=1;
+            while(i<=4){
+                if((page->claves[i]!=NULL)&&page->claves[i]->categoria==p){
+                    s+=page->claves[i]->to_string();
+                   
+                } 
+                i++;
+            }
+            return s;
+        }else{
+            int i=0;
+            while(i<=4){
+                if(page->ramas[i]!=NULL){
+                    s+=stringReporteCategoria(p,page->ramas[i]);
+                }
+                i++;
+            }
+            i=1;
+            while(i<=4){
+                if((page->claves[i]!=NULL)&&page->claves[i]->categoria==p){
+                    s+=page->claves[i]->to_string();
+                } 
+                i++;
+            }
+            return s;
+        }
+    }
+    
+    void profesoresCarrera(int codCarrera,ArbolDeCarreras* carreras,ArbolBp* profs){
+        NodoDeBST* carrera=carreras->buscarNodo(carreras->raiz,codCarrera);
+        ofstream file;
+        file.open("Profesores_carrera"+
+        std::to_string(codCarrera)+".txt");
+        if(carrera!=NULL){
+            string s=profesoresCarreraS(profs->root,codCarrera);
+            file<<s;
+        }else{
+            string s="No existe la carrera";
+            file<<s;
+        }
+        file.close();
+    }
+    
+    string profesoresCarreraS(Paginap* ronda,int codCarrera){
+        string s="";
+        if(ronda->hayRamas()){
+            int i=0;
+            while(i<=4){
+                if(ronda->ramas[i]!=NULL){
+                    s+=profesoresCarreraS(ronda->ramas[i],codCarrera);
+                }
+                i++;
+            }
+            i=1;
+            while(i<=4){
+                if(ronda->claves[i]->codCarrera==codCarrera){
+                    s+=ronda->claves[i]->to_string();
+                }
+                i++;
+            }
+        }else{
+            int i=1;
+            while(i<=4){
+                if(ronda->claves[i]->codCarrera==codCarrera){
+                    s+=ronda->claves[i]->to_string();
+                }
+                i++;
+            }
+        }
+        return s;
+    }
+    
+    string estudiantesCarreraS(Pagina* ronda,long codCarrera){
+        string s="";
+        if(ronda->hayRamas()){
+            int i=0;
+            while(i<=4){
+                if(ronda->ramas[i]!=NULL){
+                    s+=estudiantesCarreraS(ronda->ramas[i],codCarrera);
+                }
+                i++;
+            }
+            i=1;
+            while(i<=4){
+                if(ronda->claves[i]->codCarrera==codCarrera){
+                    s+=ronda->claves[i]->to_string();
+                }
+                i++;
+            }
+        }else{
+            int i=1;
+            while(i<=4){
+                if(ronda->claves[i]->codCarrera==codCarrera){
+                    s+=ronda->claves[i]->to_string();
+                }
+                i++;
+            }
+        }
+        return s;
+    }
+    
+    void estudiantesCarrera(int codCarrera,ArbolDeCarreras* carreras, ArbolB* estdents){
+        NodoDeBST* carrera=carreras->buscarNodo(carreras->raiz,codCarrera);
+        ofstream file;
+        file.open("Estudiantes_Carrera"+
+        std::to_string(codCarrera)+".txt");
+        if(carrera!=NULL){
+            string s=estudiantesCarreraS(estdents->root,codCarrera);
+            file<<s;
+        }else{
+            string s="No existe la carrera";
             file<<s;
         }
         file.close();

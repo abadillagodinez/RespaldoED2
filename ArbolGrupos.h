@@ -17,7 +17,6 @@
 #pragma once
 
 #include "ArbolAA.h"
-#include "ProfesoresTree.h"
 
 using namespace std;
 
@@ -549,17 +548,25 @@ public:
         return res;
     }
     
+    int StrTL(string s){
+        stringstream p;
+        p<<s;
+        int i;
+        p>>i;
+        return i;
+    }
+    
     string stringProfesoresGrupo(nodoGrupo* gp,ArbolBp * profesores){
         string s="";
         if(gp->isHoja()){
-            profesor* tcj=profesores->buscarEstudiante(gp->codProfesor);
+            profesor* tcj=profesores->buscarEstudiante(StrTL(gp->codProfesor));
             s+=tcj->to_string();
             return s;
         }else{
             if(gp->hizq!=NULL){
                 s+=stringProfesoresGrupo(gp->hizq,profesores);
             }
-            profesor* tcj=profesores->buscarEstudiante(gp->codProfesor);
+            profesor* tcj=profesores->buscarEstudiante(StrTL(gp->codProfesor));
             s+=tcj->to_string();
             if(gp->hder!=NULL){
                 s+=stringProfesoresGrupo(gp->hder,profesores);
@@ -571,6 +578,8 @@ public:
     
     
 };
+
+bool arbolGrupo::rootInProblems=false;
 
 
 

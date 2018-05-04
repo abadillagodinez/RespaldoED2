@@ -13,6 +13,7 @@
 #include <sstream>
 
 #include "stringParser.h"
+#pragma twice
 
 using namespace std;
 
@@ -58,8 +59,30 @@ public:
         return hder==NULL && hizq==NULL;
     }
     
-    string estudiantesGrupo(int codigoGrupo, ArbolB* Estudiantes){
-        
+    string estudiantesGrupo(ArbolB* estudiantes){
+        string s="";
+        if(esHoja()){
+            estudiante* student=estudiantes->buscarEstudiante(valor);
+            if(student!=NULL){
+                s+=student->to_string();
+            }else{
+                s+="estudiante no registrado\n";
+            }
+        }else{
+            if(hizq!=NULL){
+                s+=hizq->estudiantesGrupo(estudiantes);
+            }
+            estudiante* student=estudiantes->buscarEstudiante(valor);
+            if(student!=NULL){
+                s+=student->to_string();
+            }else{
+                s+="estudiante no registrado\n";
+            }
+            if(hder!=NULL){
+                s+=hder->estudiantesGrupo(estudiantes);
+            }
+        }
+        return s;
     }
 
 
