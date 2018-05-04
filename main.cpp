@@ -3,6 +3,8 @@
 #include <thread>
 #include <iostream>
 #include "prueba.h"
+#include "ArbolBEstudiantes.h"
+#include "arbolavlcursos.h"
 
 using namespace std;
 
