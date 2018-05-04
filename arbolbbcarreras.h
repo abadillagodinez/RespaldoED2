@@ -69,7 +69,7 @@ public:
             int nuevoCodCarrera;
             pos1 >> nuevoCodCarrera;
             insertE(nuevoCodCarrera, data->getPos(2));
-            CargarCursos(buscarNodo(raiz, nuevoCodCarrera));
+            //CargarCursos(buscarNodo(raiz, nuevoCodCarrera));
             data->borrarFrase();
             fromfile.clear();
             if(file.eof()){
@@ -96,6 +96,14 @@ public:
             buscarNodo(pRaiz->Hizq, codCarrera);
         }
         return res;
+    }
+    
+    void imprimir(){
+        if(raiz!=NULL){
+            raiz->imprimir();
+        }else{
+            cout<<"No existen carreras"<<endl;
+        }
     }
 
 
