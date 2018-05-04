@@ -172,6 +172,20 @@ public:
         }//cout<<"CAntida de estcurso"<<datos<<endl;
         return;
     }
+    
+    nodoAA *buscarNodo(nodoAA *pRaiz,string codGrupo, string codCurso, long idEstudiantes){
+        nodoAA *res = NULL;
+        if(pRaiz->valor == idEstudiantes&&pRaiz->codCurso==codCurso&&pRaiz->codGrupo==codGrupo){
+            res = pRaiz;
+        }
+        else if(pRaiz->valor < idEstudiantes){
+            res=buscarNodo(pRaiz->hder, codGrupo,codCurso,idEstudiantes);
+        }
+        else if(pRaiz->valor > idEstudiantes){
+            res=buscarNodo(pRaiz->hizq, codGrupo,codCurso,idEstudiantes);
+        }
+        return res;
+    }
 };
 
 

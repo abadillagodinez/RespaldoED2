@@ -118,8 +118,21 @@ public:
             }
         }
     }
+    
+    NodeAVL *buscarNodo(NodeAVL *pRaiz, int codCarrera, int codCurso){
+        NodeAVL *res = NULL;
+        if(pRaiz->codCarrera == codCarrera&&pRaiz->codCurso==codCurso){
+            res = pRaiz;
+        }
+        else if(pRaiz->codCurso < codCurso){
+            res=buscarNodo(pRaiz->Hder, codCarrera,codCurso);
+        }
+        else if(pRaiz->codCurso > codCurso){
+            res=buscarNodo(pRaiz->Hizq, codCarrera,codCurso);
+        }
+        return res;
+    }
 
-private:
 
     NodeAVL *root;
     bool isVoid(){

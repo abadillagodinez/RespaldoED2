@@ -50,7 +50,6 @@ public:
     }
 
 
-private:
     NodeAVL *Hizq;
     NodeAVL *Hder;
     int height;

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include "StringParser.h"
+#include "ArbolB.h"
 
 using namespace std;
 //orden 5, implicito
@@ -97,8 +98,29 @@ public:
         found = (num == claves[pos]->codCarrera);
         }
     }
+    
+    estudiante* buscarEnPagina(int n){
+        cout<<"que paza"<<endl;
+        estudiante* student;
+        bool fund=false;
+        Pagina* paginaActual=this;
+        int pos=0;
+        while(!fund){
+            cout<<"Looking for:"<<n<<" pos "<<pos<<"fund"<<endl;
+            cout<<"page"<<paginaActual->toString()<<endl;
+            
+            paginaActual->buscarEnPag(n,fund,pos);
+            if(fund){
+                student=paginaActual->claves[pos];
+                break;
+            }else{
+                paginaActual=paginaActual->ramas[pos];
+            }
+        }
+        return student;
+    }
 
-    void meterEnPag(long newClave, Pagina *Xder, int pos,long cCarrera, string nombre,
+    void meterEnPag(int newClave, Pagina *Xder, int pos,int cCarrera, string nombre,
     string direccion, string telefono){
         cout << ":: insertando " << newClave << " en pagina.";
         for (int i = cuenta; i > pos; --i){
@@ -112,7 +134,7 @@ public:
         cout << "Listo! Ahora soy " + toString() << endl;
     }
 
-    void divide(long newClave, int pos, estudiante* &Mda, Pagina *&Xder,long cCarrera, 
+    void divide(int newClave, int pos, estudiante* &Mda, Pagina *&Xder,int cCarrera, 
     string nombre, string direccion, string telefono){
         cout << ":: iniciando division de pagina "+toString() << endl;
         int posMda;
@@ -140,6 +162,7 @@ public:
         Xder = Mder;
     }
 
+    
 
     friend class ArbolB;
 };
@@ -155,7 +178,7 @@ public:
     
     bool sEmpty() { return root == NULL; }
 
-    void insertar(long clave,long cCarrera, string nombre, string direccion, string telefono){
+    void insertar(int clave,int cCarrera, string nombre, string direccion, string telefono){
         Pagina *r = root;
         Pagina *Xr = NULL;
         bool empujarArriba = false;
@@ -180,7 +203,7 @@ public:
         }
     }
 
-void empujar(long newClave, Pagina* &p, bool &empujarArriba, estudiante* &Mdna, Pagina* &Xr,long cCarrera, string nombre, string direccion, string telefono)
+void empujar(int newClave, Pagina* &p, bool &empujarArriba, estudiante* &Mdna, Pagina* &Xr,int cCarrera, string nombre, string direccion, string telefono)
     {
     if (p->isEmpty())
     {
@@ -218,8 +241,7 @@ void empujar(long newClave, Pagina* &p, bool &empujarArriba, estudiante* &Mdna, 
 
 bool buscar(int num) { return buscar(num, root, 0); }
 
-bool buscar(int num, Pagina *p, int pos)
-{
+bool buscar(int num, Pagina *p, int pos){
     bool found = false;
     if (!p->isEmpty())
     {
@@ -228,6 +250,15 @@ bool buscar(int num, Pagina *p, int pos)
             found = buscar(num, p->ramas[pos], pos);
     }
     return found;
+}
+
+estudiante* buscarEstudiante(int num){
+    if(buscar(num)){
+        cout<<"Found or u gay?"<<endl;
+        return root->buscarEnPagina(num);
+    }else{
+        return NULL;
+    }
 }
 
 void imprimir()
@@ -248,10 +279,10 @@ void imprimir()
         }
     }
     
-    long Stringtolong(string s){
+    int Stringtoint(string s){
         stringstream p;
         p<<s;
-        long i;
+        int i;
         p>>i;
         return i;
     }
@@ -264,7 +295,7 @@ void imprimir()
         while(getline(file,fromfile)){
             data->fromSplit(fromfile,';');
             cout<<"ü ok bro?"<<endl;
-            insertar(Stringtolong(data->getPos(1)),Stringtolong(data->getPos(2)),data->getPos(3),data->getPos(4),data->getPos(5));
+            insertar(Stringtoint(data->getPos(1)),Stringtoint(data->getPos(2)),data->getPos(3),data->getPos(4),data->getPos(5));
             data->borrarFrase();
             fromfile.clear();
             if(file.eof()){

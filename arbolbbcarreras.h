@@ -90,10 +90,10 @@ public:
             res = pRaiz;
         }
         else if(pRaiz->codCarrera < codCarrera){
-            buscarNodo(pRaiz->Hder, codCarrera);
+            res=buscarNodo(pRaiz->Hder, codCarrera);
         }
         else if(pRaiz->codCarrera > codCarrera){
-            buscarNodo(pRaiz->Hizq, codCarrera);
+            res=buscarNodo(pRaiz->Hizq, codCarrera);
         }
         return res;
     }
@@ -105,9 +105,7 @@ public:
             cout<<"No existen carreras"<<endl;
         }
     }
-
-
-private:
+    
     NodoDeBST *raiz;
 
 
