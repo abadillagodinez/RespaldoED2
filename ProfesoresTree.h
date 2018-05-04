@@ -92,6 +92,23 @@ public:
         found = (num == claves[pos]->codCarrera);
         }
     }
+    
+    profesor* buscarEnPagina(long n){
+        profesor* student;
+        bool fund=false;
+        Paginap* paginaActual=this;
+        int pos=0;
+        while(!fund){
+            paginaActual->buscarEnPag(n,fund,pos);
+            if(fund){
+                student=paginaActual->claves[pos];
+                break;
+            }else{
+                paginaActual=paginaActual->ramas[pos];
+            }
+        }
+        return student;
+    }
 
     void meterEnPag(long newClave, Paginap *Xder, int pos,long cCarrera, string nombre,
     string direccion){
@@ -224,6 +241,14 @@ bool buscar(int num, Paginap *p, int pos)
             found = buscar(num, p->ramas[pos], pos);
     }
     return found;
+}
+
+profesor* buscarEstudiante(int num){
+    if(buscar(num)){
+        return root->buscarEnPagina(num);
+    }else{
+        return NULL;
+    }
 }
 
 void imprimir()

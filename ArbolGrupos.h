@@ -532,6 +532,20 @@ public:
             }
         }
     }
+    
+    nodoGrupo *buscarNodo(nodoGrupo *pRaiz, string codCarrera, string codCurso, int codGrupo){
+        nodoGrupo *res = NULL;
+        if(pRaiz->codCarrera == codCarrera&&pRaiz->codCurso==codCurso&&pRaiz->codGrupo==codGrupo){
+            res = pRaiz;
+        }
+        else if(pRaiz->codGrupo < codGrupo){
+            res=buscarNodo(pRaiz->hder, codCarrera,codCurso,codGrupo);
+        }
+        else if(pRaiz->codGrupo > codGrupo){
+            res=buscarNodo(pRaiz->hizq, codCarrera,codCurso,codGrupo);
+        }
+        return res;
+    }
 };
 
 bool arbolGrupo::rootInProblems=false;

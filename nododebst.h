@@ -76,8 +76,6 @@ public:
         cout<<to_string()<<endl;
         cursos->imprimirArbol();
     }
-
-private:
     int codCarrera;
     NodoDeBST *Hizq;
     NodoDeBST *Hder;
