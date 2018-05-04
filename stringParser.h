@@ -5,18 +5,15 @@
  */
 
 /* 
- * File:   stringParser.h
+ * File:   StringParser.h
  * Author: Sir Than II
  *
- * Created on March 26, 2018, 9:39 PM
+ * Created on May 2, 2018, 3:37 PM
  */
 
 #ifndef STRINGPARSER_H
 #define STRINGPARSER_H
 
-#ifdef __cplusplus
-#endif
-    
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -122,9 +119,6 @@ public:
     }
 };
 
-
-#ifdef __cplusplus
-#endif
 
 #endif /* STRINGPARSER_H */
 
