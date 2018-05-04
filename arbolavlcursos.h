@@ -3,6 +3,7 @@
 #include <iostream>
 #include "nodeavl.h"
 #include <sstream>
+#include <fstream>
 #include "stringParser.h"
 
 using namespace std;
@@ -20,7 +21,6 @@ public:
     void insert(int pCodCarrera, int pCodCurso, string pNombre){
         insertBalanced(root, pCodCarrera, pCodCurso, pNombre);
     }
-
 
     NodeAVL* insertBalanced(NodeAVL* &pRaiz, int pCodCarrera, int pCodCurso, string pNombre){
         //cout << "1. pRaiz es: " << pRaiz << endl;
@@ -56,7 +56,6 @@ public:
         return pRaiz;
     }
 
-
     void Mostrar(NodeAVL* pRaiz, int n){
         if(pRaiz != NULL){ // Si el árbol no está vacío
             Mostrar(pRaiz->Hder, n+2);
@@ -67,7 +66,6 @@ public:
         }
     }
 
-
     void makeEmptyAux(NodeAVL *pRaiz){
         if(pRaiz == NULL){
             return;
@@ -77,13 +75,20 @@ public:
         delete pRaiz;
     }
 
-
     void makeEmpty(){
         makeEmptyAux(root);
     }
 
     void imprimir(){
         Mostrar(root, 0);
+    }
+    
+    void imprimirArbol(){
+        if(root==NULL){
+            cout<<"No existen cursos de esa carrera"<<endl;
+        }else{
+            root->imprimir();
+        }
     }
 
     void CargarCursos(int Carrera){

@@ -169,7 +169,8 @@ public:
                 file.close();
             }
             //cout<<"Cuso anadido"<<endl;
-        }cout<<"CAntida de estcurso"<<datos<<endl;return;
+        }//cout<<"CAntida de estcurso"<<datos<<endl;
+        return;
     }
 };
 

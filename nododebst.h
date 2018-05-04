@@ -12,6 +12,10 @@ public:
         nombreCarrera = pNombreCarrera;
         Hizq = NULL;
         Hder = NULL;
+        cursos->CargarCursos(codCarrera);
+//        cout<<"Cursos creados";
+//        cursos->imprimir();
+//                cout<<endl;
     }
 
     ~NodoDeBST(){}
@@ -45,6 +49,32 @@ public:
                 Hder->insertBinary(pCodCarrera, pNombreCarrera);
             }
         }
+    }
+    
+    string to_string(){
+        string s="";
+        s+="Codigo carrera"+std::to_string(codCarrera)+"\n";
+        s+="Nombre de carrera"+ nombreCarrera+"\n";
+        return s;
+    }
+    
+    void imprimir(){
+        if(isLeaf()){
+            imprimirNodo();
+        }else{
+            if(Hizq!=NULL){
+                Hizq->imprimir();
+            }
+            imprimirNodo();
+            if(Hder!=NULL){
+                Hder->imprimir();
+            }
+        }
+    }
+    
+    void imprimirNodo(){
+        cout<<to_string()<<endl;
+        cursos->imprimirArbol();
     }
 
 private:
