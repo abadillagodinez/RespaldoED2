@@ -12,7 +12,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "StringParser.h"
+#include "stringParser.h"
 
 using namespace std;
 

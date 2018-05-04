@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "StringParser.h"
+#include "stringParser.h"
 
 using namespace std;
 //orden 5, implicito
@@ -87,9 +87,9 @@ public:
         pos = 0;
         }else{
         pos = cuenta;
-        while(num < claves[pos]->codCarrera && pos > 1)
+        while(num < claves[pos]->idprofesor && pos > 1)
             pos--;
-        found = (num == claves[pos]->codCarrera);
+        found = (num == claves[pos]->idprofesor);
         }
     }
     

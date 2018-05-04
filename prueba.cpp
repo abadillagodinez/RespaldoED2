@@ -19,5 +19,5 @@ void prueba::ejecutarEnElThread(){
 
 void prueba::start(){
     thread t(&prueba::ejecutarEnElThread);
-    t.detach();
+    t.join();
 }

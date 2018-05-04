@@ -15,7 +15,9 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     mainwindowlogic.cpp \
-    prueba.cpp
+    prueba.cpp \
+    ColaDeAtencion.cpp \
+    NodoDAtencion.cpp
 
 HEADERS  += mainwindow.h \
     mainwindowlogic.h \
@@ -25,12 +27,15 @@ HEADERS  += mainwindow.h \
     arbolbprofesores.h \
     arbolbbcarreras.h \
     arbolavlcursos.h \
-    listademesas.h \
     nodeavl.h \
     nododebst.h \
     ArbolAA.h \
     Estudiantestree.h \
     grupo.h \
-    ProfesoresTree.h
+    ProfesoresTree.h \
+    ArbolGrupos.h \
+    mostradorJonathan.h \
+    ColaDeAtencion.h \
+    NodoDAtencion.h
 
 FORMS    += mainwindow.ui

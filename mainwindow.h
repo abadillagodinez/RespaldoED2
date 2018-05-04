@@ -33,7 +33,7 @@ public:
 
 public slots:
     void pintarLabel(int);
-    void atender();
+    void atender(int);
 
 private slots:
     void on_btnProfesoresDeUnCurso_clicked();
@@ -41,6 +41,10 @@ private slots:
     void on_btnCursosDeUnaCarrera_clicked();
 
     void on_btnEstudianteDeUnGrupo_clicked();
+
+    void on_btnEstudiantesDeUnCarrera_clicked();
+
+    void on_btnProfesoresDeUNACarrera_clicked();
 
 private:
     void wait();

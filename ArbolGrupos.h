@@ -14,6 +14,7 @@
 #ifndef ARBOLGRUPOS_H
 #define ARBOLGRUPOS_H
 #include <iostream>
+#pragma once
 
 #include "ArbolAA.h"
 
@@ -548,7 +549,6 @@ public:
     }
 };
 
-bool arbolGrupo::rootInProblems=false;
 
 
 #endif /* ARBOLGRUPOS_H */

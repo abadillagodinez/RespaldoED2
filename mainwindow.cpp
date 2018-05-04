@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setFixedSize(this->width(), this->height());
     move(500, 250);
     QObject::connect(logic, SIGNAL(cambiarLabel(int)), this, SLOT(pintarLabel(int)));
-    QObject::connect(logic, SIGNAL(moverLabels()), this, SLOT(atender()));
+    QObject::connect(logic, SIGNAL(moverLabels(int)), this, SLOT(atender(int)));
     logic->start();
 
 }
@@ -78,9 +78,7 @@ void MainWindow::wait(){
     }
 }
 
-void MainWindow::atender(){
-    srand (time(NULL));
-    int mostrador = rand() % 3 + 1;
+void MainWindow::atender(int mostrador){
 
     switch (mostrador) {
     case 1:
@@ -141,7 +139,7 @@ void MainWindow::on_btnProfesoresDeUnCurso_clicked()
     if(ui->txfCarreraParaProfesores->text().isEmpty() || ui->txfCursosParaProfesores->text().isEmpty()){
         QMessageBox::information(this, "Error", "Alguno de los campos esta vacio");
     }
-    else if(!is_int(ui->txfCarreraParaProfesores->text().toStdString()) || !is_int(ui->txfCursosParaProfesores->text().toStdString())){
+    else if(!ui->txfCarreraParaProfesores->text().toInt() || !ui->txfCursosParaProfesores->text().toInt()){
         QMessageBox::information(this, "Error", "Alguno de los valores no es un entero");
     }
     else{
@@ -154,7 +152,7 @@ void MainWindow::on_btnCursosDeUnaCarrera_clicked()
     if(ui->txfCarreraParaCursos->text().isEmpty()){
         QMessageBox::information(this, "Error", "El campo esta vacio");
     }
-    else if(!is_int(ui->txfCarreraParaCursos->text().toStdString())){
+    else if(!ui->txfCarreraParaCursos->text().toInt()){
         QMessageBox::information(this, "Error", "El valor no es un entero");
     }
     else{
@@ -167,7 +165,7 @@ void MainWindow::on_btnEstudianteDeUnGrupo_clicked()
     if(ui->txfCarreraParaEstudiantes->text().isEmpty() || ui->txfCursosParaEstudiantes->text().isEmpty() || ui->txfGrupoParaEstudiantes->text().isEmpty()){
         QMessageBox::information(this, "Error", "Alguno de los campos esta vacio");
     }
-    else if(!is_int(ui->txfCarreraParaEstudiantes->text().toStdString()) || !is_int(ui->txfCursosParaEstudiantes->text().toStdString()) || !is_int(ui->txfGrupoParaEstudiantes->text().toStdString())){
+    else if(!ui->txfCarreraParaEstudiantes->text().toInt() || !ui->txfCursosParaEstudiantes->text().toInt() || !ui->txfGrupoParaEstudiantes->text().toInt()){
         QMessageBox::information(this, "Error", "Alguno de los valores no es un entero");
     }
     else{
@@ -180,7 +178,23 @@ void MainWindow::on_btnEstudiantesDeUnCarrera_clicked()
     if(ui->txfCarreraParaEstudiantes2->text().isEmpty()){
         QMessageBox::information(this, "Error", "El campo esta vacio");
     }
-    else if(!is_integer){
+    else if(!ui->txfCarreraParaEstudiantes2->text().toInt()){
         QMessageBox::information(this, "Error", "El valor no es un entero");
+    }
+    else{
+        //aqui va el codigo que genera el reporte
+    }
+}
+
+void MainWindow::on_btnProfesoresDeUNACarrera_clicked()
+{
+    if(ui->txfCarreraParaProfesores2->text().isEmpty()){
+        QMessageBox::information(this, "Error", "El campo esta vacio");
+    }
+    else if(!ui->txfCarreraParaProfesores2->text().toInt()){
+        QMessageBox::information(this, "Error", "El valor no es un entero");
+    }
+    else{
+        //aqui va el codigo que genera el reporte
     }
 }
