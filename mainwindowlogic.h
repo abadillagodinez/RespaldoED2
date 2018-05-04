@@ -16,9 +16,12 @@ public:
     MainWindowLogic();
     ColaDeAtencion *fila = new ColaDeAtencion();
     mostradores *mesas = new mostradores(fila);
-    static std::thread primero;
-    static std::thread segundo;
-    static std::thread tercero;
+    std::thread primero;
+    std::thread segundo;
+    std::thread tercero;
+    void correrThread1(NodoDAtencion *actual);
+    void correrThread2(NodoDAtencion *actual);
+    void correrThread3(NodoDAtencion *actual);
 
 
 //public slots:

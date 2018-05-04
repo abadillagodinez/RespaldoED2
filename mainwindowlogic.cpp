@@ -40,10 +40,10 @@ void MainWindowLogic::ejecutarAcciones(){
             secondsPassed = (clock() - startTime) / CLOCKS_PER_SEC;
             if(!fila->colaVacia()){
                 NodoDAtencion *actual = fila->popElement();
-                if(primero().joinable()){
-                    primero(mesas->primero->atender, actual);
+                if(primero.joinable()){
+                    correrThread1(actual);
                 }
-                head->accion(carreras, actual->idEstudiante, actual->codCurso, actual->codGrupo, actual->accion);
+                //head->accion(carreras, actual->idEstudiante, actual->codCurso, actual->codGrupo, actual->accion);
                 atendidos = mesas->primero->cantidadAtendidos + mesas->segundo->cantidadAtendidos + mesas->tercero->cantidadAtendidos;
             }
             if(secondsPassed >= secondsToDelay){
@@ -55,6 +55,21 @@ void MainWindowLogic::ejecutarAcciones(){
         fila->cargarDatos();
     }
     //cout << atendidos << endl;
+}
+
+void MainWindowLogic::correrThread1(NodoDAtencion *actual){
+    primero(&nodoMostrador::atender, actual);
+    primero.join();
+}
+
+void MainWindowLogic::correrThread2(NodoDAtencion *actual){
+    segundo(&nodoMostrador::atender, actual);
+    segundo.join();
+}
+
+void MainWindowLogic::correrThread3(NodoDAtencion *actual){
+    tercero(&nodoMostrador::atender, actual);
+    tercero.join();
 }
 
 int MainWindowLogic::getCantidadDeAtenciones(){
