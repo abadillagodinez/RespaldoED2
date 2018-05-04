@@ -17,7 +17,6 @@
 #include "ColaDeAtencion.h"
 #include "arbolbbcarreras.h"
 #include "Estudiantestree.h"
-#include "ProfesoresTree.h"
 #include <iostream>
 
 using namespace std;
@@ -53,48 +52,47 @@ public:
         p>>i;
         return i;
     }
-
-
-    void atender(NodoDAtencion *cliente){
-        estudiante* estudianteBD=estudiantes->buscarEstudiante(cliente->idEstudiante);
-        if(estudianteBD!=NULL){
-            NodoDeBST* carrera=carreras->buscarNodo(carreras->raiz,estudianteBD->codCarrera);
-            if(carrera!=NULL){
-                NodeAVL* curso=carrera->cursos->buscarNodo(carrera->cursos->root,
-                        carrera->codCarrera,StrTL(cliente->codCurso));
-                if(curso!=NULL){
-                    stringstream ss;
-                    int codGrup;
-                    ss << cliente->codGrupo;
-                    ss >> codGrup;
-                    nodoGrupo* grupo = curso->grupos->buscarNodo(curso->grupos->raiz, to_string(curso->codCarrera), to_string(curso->codCurso), codGrup);
-                    if(grupo!=NULL){
-                        switch(cliente->accion){
-                        case 1:matricular(estudianteBD,grupo);break;
-                        case 2:desmatricular(estudianteBD,grupo);break;
-                        case 3:congelar(estudianteBD,grupo);break;
-                            default:cout<<"Eso no se puede hacer joven: "<<estudianteBD->nombre<<endl;break;
+    
+    void atender(){
+        NodoDAtencion* cliente;
+        while(true){
+            cliente=fila->popElement();
+            estudiante* estudianteBD=estudiantes->buscarEstudiante(cliente->idEstudiante);
+            if(estudianteBD!=NULL){
+                NodoDeBST* carrera=carreras->buscarNodo(carreras->raiz,estudianteBD->codCarrera);
+                if(carrera!=NULL){
+                    NodeAVL* curso=carrera->cursos->buscarNodo(carrera->cursos->root,
+                            carrera->codCarrera,StrTL(cliente->codCurso));
+                    if(curso!=NULL){
+                        nodoGrupo* grupo=curso->grupos->buscarNodo(curso->grupos->raiz,
+                                std::to_string(curso->codCarrera),curso->codCurso,cliente->codGrupo);
+                        if(grupo!=NULL){
+                            switch(cliente->accion){
+                            case 1:matricular(estudianteBD,grupo);break;
+                            case 2:desmatricular(estudianteBD,grupo);break;
+                            case 3:congelar(estudianteBD,grupo);break;
+                                default:cout<<"Eso no se puede hacer joven: "<<estudianteBD->nombre<<endl;break;  
+                            }
+                        }else{
+                            cout<<"El grupo del estudiante atendido no esta registrado"<<endl;
+                            //cliente->atendido=true;
                         }
                     }else{
-                        cout<<"El grupo del estudiante atendido no esta registrado"<<endl;
+                        cout<<"El curso del estudiante atendido no esta registrado"<<endl;
                         //cliente->atendido=true;
                     }
                 }else{
-                    cout<<"El curso del estudiante atendido no esta registrado"<<endl;
+                    cout<<"La carrera del estudiante atendido no esta registrado"<<endl;
                     //cliente->atendido=true;
                 }
             }else{
-                cout<<"La carrera del estudiante atendido no esta registrado"<<endl;
+                cout<<"El estudiante atendido no esta registrado"<<endl;
                 //cliente->atendido=true;
             }
-        }else{
-            cout<<"El estudiante atendido no esta registrado"<<endl;
-            //cliente->atendido=true;
-        }
-        //fila->eliminar1();
-        //cout<<"avanza?"<<endl;
+            //fila->eliminar1();
+            //cout<<"avanza?"<<endl;
+        }        
     }
-
         //return this;
     
     
@@ -103,7 +101,8 @@ public:
             cout<<"Grupo lleno no se puede matricular, lo sentimos: "+estudiante->nombre<<endl;
         }else{
             grupo->cupoMatriculado++;
-            grupo->miembros->anadirNodo(grupo->miembros, estudiante->idEstudiante, to_string(grupo->codGrupo),grupo->codCurso);
+            grupo->miembros->anadirNodo(grupo,estudiante->idEstudiante,
+                    std::to_string(grupo->codGrupo),grupo->codCurso);
         }
         
     }

@@ -5,7 +5,6 @@
 #include <sstream>
 #include <fstream>
 #include "stringParser.h"
-#include <fstream>
 
 using namespace std;
 class ArbolAVLCursos
@@ -93,7 +92,7 @@ public:
     }
 
     void CargarCursos(int Carrera){
-        std::ifstream file;
+        ifstream file;
         file.open("Cursos.txt");
         string fromfile;
         String *data=new String();
@@ -181,6 +180,22 @@ public:
         else
             return getHeight(pRaiz->Hizq) - getHeight(pRaiz->Hder);
     }
+    
+    string getStringReporteCarreras(NodeAVL* root){
+        string s="";
+        if(root->esHoja()){
+            s+=root->to_string()+"\n";
+        }else{
+            if(root->Hizq!=NULL){
+                s+=getStringReporteCarreras(root->Hizq)+"\n";
+            }
+            s+=root->to_string()+"\n";
+            if(root->Hder!=NULL){
+                s+=getStringReporteCarreras(root->Hder)+"\n";
+            }
+        }
+    }
+    
 
 };
 #endif // ARBOLAVLCURSOS_H

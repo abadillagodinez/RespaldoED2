@@ -6,6 +6,7 @@ class ArbolAVLCursos;
 #include <iostream>
 #include "stringParser.h"
 #include "nododebst.h"
+#include "ProfesoresTree.h"
 
 
 using namespace std;
@@ -112,6 +113,86 @@ public:
     bool isVoid(){
         return raiz == NULL;
     }
+    
+    string getStringReporteCarreras(NodoDeBST* root){
+        string s="";
+        if(root->isLeaf()){
+            s+=root->to_string()+"\n";
+        }else{
+            if(root->Hizq!=NULL){
+                s+=getStringReporteCarreras(root->Hizq)+"\n";
+            }
+            s+=root->to_string()+"\n";
+            if(root->Hder!=NULL){
+                s+=getStringReporteCarreras(root->Hder)+"\n";
+            }
+        }
+    }
+    
+    void reporteCarrera(){
+        fstream file;
+        file.open("Reporte_de_Carrera.txt");
+        file<<getStringReporteCarreras(raiz);
+        file.close();
+    }
 
+    void getReporteCursosCarrera(int idCarrera){
+        ofstream file;
+        file.open("Reporte_de_Carrera_"+std::to_string(idCarrera)+".txt");
+        NodoDeBST* carrera=buscarNodo(raiz,idCarrera);
+        file<<carrera->cursos->getStringReporteCarreras(carrera->cursos->root);
+        file.close();
+    }
+    
+    void reporteProfesoresCurso(int codCarrera,int codCurso,ArbolBp * profesores){
+        ofstream file;
+        file.open("ProfesoresCurso"+std::to_string(codCurso)+"Carrera"+
+        std::to_string(codCarrera)+".txt");
+        NodoDeBST *carrera=buscarNodo(codCarrera);
+        if(carrera!=NULL){
+            NodeAVL * cursos=carrera->cursos->buscarNodo(carrera->cursos->root,codCarrera,codCurso);
+            if(cursos!=NULL){
+                arbolGrupo* grups=cursos->grupos;
+                string s=grups->stringProfesoresGrupo(grups->raiz,profesores);
+                file<<s;
+            }else{
+                string s="No existe el curso especificado";
+                file<<s;
+            }
+        }else{
+            string s="No existe la carrera especificada";
+            file<<s;
+        }
+        file.close();
+    }
+    
+    
+    void reporteEstGrupo(int codCarrera,int codCurso, int codGrupo,ArbolB* estudiantes){
+        ofstream file;
+        file.open("ProfesoresCurso"+std::to_string(codCurso)+"Carrera"+
+        std::to_string(codCarrera)+".txt");
+        NodoDeBST *carrera=buscarNodo(codCarrera);
+        if(carrera!=NULL){
+            NodeAVL * cursos=carrera->cursos->buscarNodo(carrera->cursos->root,codCarrera,codCurso);
+            if(cursos!=NULL){
+                nodoGrupo* grups=cursos->grupos->buscarNodo(cursos->grupos->raiz,
+                        std::to_string(codCarrera),std::to_string(codCurso),codGrupo);
+                if(grups!=NULL){
+                    nodoAA* estCurso=grups->miembros;
+                    string s=estCurso;
+                }else{
+                    string s="No existe el grupo especificado";
+                    file<<s;
+                }
+            }else{
+                string s="No existe el curso especificado";
+                file<<s;
+            }
+        }else{
+            string s="No existe la carrera especificada";
+            file<<s;
+        }
+        file.close();
+    }
 };
 #endif // ARBOLBBCARRERAS_H

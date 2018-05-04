@@ -24,5 +24,4 @@ class NodoDAtencion
     friend class ColaDeAtencion;
     friend class ListaDMesas;
     friend class nodoMostrador;
-    friend class mainwindowlogic;
 };

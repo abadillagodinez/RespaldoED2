@@ -57,7 +57,10 @@ public:
     bool esHoja(){
         return hder==NULL && hizq==NULL;
     }
-
+    
+    string estudiantesGrupo(int codigoGrupo, ArbolB* Estudiantes){
+        
+    }
 
 
     void anadirNodo(nodoAA* &root,long n,string ncodGrupo, string ncodCurso){
