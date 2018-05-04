@@ -180,7 +180,7 @@ void MainWindow::on_btnEstudiantesDeUnCarrera_clicked()
     if(ui->txfCarreraParaEstudiantes2->text().isEmpty()){
         QMessageBox::information(this, "Error", "El campo esta vacio");
     }
-    else if(!is_integer){
+    else if(!is_int(ui->txfCarreraParaEstudiantes2->te)){
         QMessageBox::information(this, "Error", "El valor no es un entero");
     }
 }

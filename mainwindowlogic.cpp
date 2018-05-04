@@ -13,11 +13,15 @@ void MainWindowLogic::run(/*recibe la cola de atecion*/){
      * el ciclo grande de atencion, con sus respectivos emits para la
      * interfaz */
     for(int i = 0; i < 10; i++){
+        srand(time(NULL));
         emit cambiarLabel(i);
-        QThread::msleep(500);
+        int milisec = rand() % 1200 + 500;
+        QThread::msleep(milisec);
     }
     for(int i = 0; i < 10; i++){
+        srand(time(NULL));
         emit moverLabels();
-        QThread::msleep(500);
+        int milisec = rand() % 1200 + 500;
+        QThread::msleep(milisec);
     }
 }

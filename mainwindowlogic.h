@@ -3,6 +3,7 @@
 #include <QThread>
 #include <QObject>
 #include "iostream"
+#include <stdlib.h>
 
 using namespace std;
 class MainWindowLogic : public QThread

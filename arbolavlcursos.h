@@ -4,6 +4,7 @@
 #include "nodeavl.h"
 #include <sstream>
 #include "stringParser.h"
+#include <fstream>
 
 using namespace std;
 class ArbolAVLCursos
@@ -87,7 +88,7 @@ public:
     }
 
     void CargarCursos(int Carrera){
-        ifstream file;
+        std::ifstream file;
         file.open("Cursos.txt");
         string fromfile;
         String *data=new String();

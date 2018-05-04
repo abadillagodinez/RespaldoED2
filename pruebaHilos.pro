@@ -22,12 +22,15 @@ HEADERS  += mainwindow.h \
     prueba.h \
     RespaldoED2/estudiante.h \
     stringParser.h \
-    ArbolBEstudiantes.h \
     arbolbprofesores.h \
     arbolbbcarreras.h \
     arbolavlcursos.h \
     listademesas.h \
     nodeavl.h \
-    nododebst.h
+    nododebst.h \
+    ArbolAA.h \
+    Estudiantestree.h \
+    grupo.h \
+    ProfesoresTree.h
 
 FORMS    += mainwindow.ui

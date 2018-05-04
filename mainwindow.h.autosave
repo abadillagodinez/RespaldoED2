@@ -42,6 +42,8 @@ private slots:
 
     void on_btnEstudianteDeUnGrupo_clicked();
 
+    void on_btnEstudiantesDeUnCarrera_clicked();
+    
 private:
     void wait();
     bool is_int(string valor);
